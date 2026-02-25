@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: meu-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # Alterado de SSH para HTTPS
+    repoURL: 'https://github.com/julianotrovao/devops-lab-gitops.git'
+    targetRevision: HEAD
+    path: k8s-manifests
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
